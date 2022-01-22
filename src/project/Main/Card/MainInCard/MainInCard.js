@@ -1,20 +1,18 @@
 import React from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { isnotInterestForMe, responseOnVacancy } from "../../../App";
 import "./MainInCard.css";
 function MainInCard(props) {
-    const vacanciesSatusesAndURL = useSelector((state) => state.vacanciesListStatusArr)
+    const cardStatusAndUrl = useSelector((state) => (state.vacanciesListStatusArr).find(el => el.id === props.id));
     return (
         <main className="mainInCard">
-            <article>
-                <p className="marker">Новая</p>
-                <p className="vacancyName" onClick={() => {
-                    console.log(vacanciesSatusesAndURL)
-                }}>{props.name}</p>
+            <article> 
+                {(cardStatusAndUrl === null || cardStatusAndUrl === undefined) ? <p className="marker">Новая</p> : (cardStatusAndUrl.status === isnotInterestForMe) ? <p className="markerDisliked">Не интересная</p> : (cardStatusAndUrl.status === responseOnVacancy) ? <p className="markerResponded">Вы откликнулись</p> : <p className="marker">Новая</p>}
+                <p className="vacancyName">{props.name}</p> 
                 {}
                 <div className="aboutWorkAndArea">
                     <p className="linkToEmployerSite" onClick={() => {
-                        const find = vacanciesSatusesAndURL.find(el => (el.id) === (props.id).toString());
-                        window.open(find.employerUrl)
+                        window.open(cardStatusAndUrl.employerUrl)
                     }}>{props.companyName}</p>
                     <p className="city">{props.city}</p>
                 </div>

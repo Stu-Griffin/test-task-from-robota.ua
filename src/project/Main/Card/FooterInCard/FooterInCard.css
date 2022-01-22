@@ -7,21 +7,6 @@
     font-weight: normal; 
 } 
 
-@font-face {
-    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
-    font-family: "Graphik-Bold-Web"; 
-    /* адрес шрифта и тип  */
-    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Bold-Web.woff2") format("truetype"); 
-    font-style: normal; 
-    font-weight: normal; 
-} 
-
-.hidden {
-    visibility: collapse;
-    height: 0px;
-    padding: 0px;
-}
-
 .joinWork {
     cursor: pointer;
     color: #FF5252;

@@ -16,12 +16,6 @@
     font-weight: normal; 
 } 
 
-.hidden {
-    visibility: collapse;
-    height: 0px;
-    padding: 0px;
-}
-
 .mainInCard {
     margin-top: 17%;
     display: flex;

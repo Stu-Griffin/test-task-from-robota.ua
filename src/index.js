@@ -11,7 +11,7 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import reducer from './reducer/reducer';
 import thunk from 'redux-thunk';
 export const URL = "https://610b9ecc2b6add0017cb399f.mockapi.io/For-test-task";
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
+export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,32 +1,38 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInfFromAPI } from "../../workWithAPI/workWithAPI"
-import { getVacanciesListStatus } from '../../reducer/reducer';
+import { getVacanciesListStatus, refreshArray } from '../../reducer/reducer';
 import Card from "./Card/Card"
 import './Main.css';
 
 function Main() {
     const dispatch = useDispatch();
-    const vacancies = useSelector((state) => state.vacanciesListArr)
-    const vacanciesSatusesAndURL = useSelector((state) => state.vacanciesListStatusArr)
+    let vacancies = useSelector((state) => state.vacanciesListArr)
     useEffect(() => {
         dispatch(getInfFromAPI())
     }, [])
     useEffect(() => {
-        vacancies.map(el => {
-            const obj = {
-                id: el.id,
-                status: "active",
-                employerUrl: el.employerUrl
-            }
-            dispatch(getVacanciesListStatus(obj))
-        })
+        dispatch(refreshArray())
+        if(localStorage.getItem("vacanciesStatusAndURL") === null || localStorage.getItem("vacanciesStatusAndURL") === undefined) {
+            console.log("create")
+            vacancies.map(el => {
+                const obj = {
+                    id: el.id,
+                    status: "active",
+                    employerUrl: el.employerUrl
+                }
+                dispatch(getVacanciesListStatus(obj))
+                // return 0
+            })
+        } else {
+            console.log("import")
+            JSON.parse(localStorage.getItem("vacanciesStatusAndURL")).map(statusObj => {
+                dispatch(getVacanciesListStatus(statusObj))
+            })
+        }
     }, [vacancies])
     return (
         <main className="mainInAPP">
-            <button onClick={() => {
-                console.log(vacanciesSatusesAndURL)
-            }}>test</button>
             {vacancies.map(vacancy => {
                 return(
                     <Card

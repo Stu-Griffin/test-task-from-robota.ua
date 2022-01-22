@@ -1,25 +1,5 @@
-@font-face {
-    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
-    font-family: "Graphik-Regular-Web"; 
-    /* адрес шрифта и тип  */
-    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Regular-Web.woff2") format("truetype"); 
-    font-style: normal; 
-    font-weight: normal; 
-} 
-
-@font-face {
-    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
-    font-family: "Graphik-Bold-Web"; 
-    /* адрес шрифта и тип  */
-    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Bold-Web.woff2") format("truetype"); 
-    font-style: normal; 
-    font-weight: normal; 
-} 
-
 .hidden {
-    visibility: collapse;
-    height: 0px;
-    padding: 0px;
+    display: none;
 }
 
 .error {
@@ -34,11 +14,11 @@
     background-position-y: 0.95rem;
 }
 
-.cardDisliked, .respondedCard {
+.cardDislikedOrResponed {
     opacity: 0.5;
 }
 
-.card, .cardDisliked, .respondedCard {
+.card, .cardDislikedOrResponed {
     width: 52%;
     margin: auto;
     margin-top: 3rem;
@@ -53,19 +33,19 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .card {
+    .card, .cardDislikedOrResponed {
         width: 65%;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .card {
+    .card, .cardDislikedOrResponed {
         width: 75%;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .card {
+    .card, .cardDislikedOrResponed {
         width: 80%;
     }
 }
