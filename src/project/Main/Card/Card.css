@@ -1,0 +1,71 @@
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Regular-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Regular-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Bold-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Bold-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+.hidden {
+    visibility: collapse;
+    height: 0px;
+    padding: 0px;
+}
+
+.error {
+    background: #FFD8D8;
+    background-image: url("../../img/Warning.svg");
+    background-repeat: no-repeat;
+    padding: 2% 10%;
+    margin: 0rem -1rem;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-position-x: 2rem;
+    background-position-y: 0.95rem;
+}
+
+.cardDisliked, .respondedCard {
+    opacity: 0.5;
+}
+
+.card, .cardDisliked, .respondedCard {
+    width: 52%;
+    margin: auto;
+    margin-top: 3rem;
+    border: none;
+    border-radius: 15px;
+    background-image: url("../../img/img-in-card.png");
+    background-repeat: no-repeat;
+    background-size: 110%;
+    padding: 0rem 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background-color: white;
+}
+
+@media screen and (max-width: 1024px) {
+    .card {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .card {
+        width: 80%;
+    }
+}

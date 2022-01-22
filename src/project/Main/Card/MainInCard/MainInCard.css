@@ -1,0 +1,100 @@
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Regular-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Regular-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Bold-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Bold-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+.hidden {
+    visibility: collapse;
+    height: 0px;
+    padding: 0px;
+}
+
+.mainInCard {
+    margin-top: 17%;
+    display: flex;
+    justify-content: space-between;
+    font-family: "Graphik-Regular-Web";
+}
+
+.marker, .markerDisliked, .markerResponded {
+    border-radius: 5px;
+    width: max-content;
+    padding: 0.25rem 0.45rem;
+}
+
+.marker {
+    background-color: #FFE9E9;
+    color: #BC0002;
+}
+
+.markerResponded {
+    background-color: #D5FFE6;
+    color: #00702D;
+}
+
+.markerDisliked {
+    background-color: #C8D1D6;
+    color: #303A3E;
+}
+
+.companyLogo {
+    width: 28%;
+    height: 28%;
+    margin-top: 5rem;
+}
+
+.vacancyName {
+    font-family: "Graphik-Bold-Web"; 
+    font-size: 200%;
+}
+
+.aboutWorkAndArea {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 67%;
+}
+
+.linkToEmployerSite {
+    cursor: pointer;
+    color: #FF5252;
+}
+
+@media screen and (max-width: 1024px) {
+    .companyLogo {
+        width: 20%;
+        margin-top: 3rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .vacancyName {
+        font-size: 142%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .companyLogo {
+        width: 25%;
+    }
+}
+
+@media screen and (max-width: 310px) {
+    .companyLogo {
+        width: 0%;
+        visibility: collapse;
+    }
+}

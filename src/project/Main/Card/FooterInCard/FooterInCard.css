@@ -1,0 +1,65 @@
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Regular-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Regular-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Bold-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Bold-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+.hidden {
+    visibility: collapse;
+    height: 0px;
+    padding: 0px;
+}
+
+.joinWork {
+    cursor: pointer;
+    color: #FF5252;
+}
+
+.icon {
+    cursor: pointer;
+    width: 1.25rem;
+}
+
+.additionalFunctionsForCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 15rem;
+}
+
+.joinWork {
+    background: none;
+    border: none;
+    font-size: 100%;
+    background-image: url("../../../img/man.svg");
+    background-repeat: no-repeat;
+    width: 8.5rem;
+    padding-left: 1rem;
+}
+
+.footerInCard {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Graphik-Regular-Web"; 
+}
+
+@media screen and (max-width: 768px) {
+    .additionalFunctionsForCard {
+        width: 25rem;
+    }
+}

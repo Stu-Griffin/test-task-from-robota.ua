@@ -1,0 +1,4 @@
+.mainInAPP {
+    display: flex;
+    flex-direction: column;
+}

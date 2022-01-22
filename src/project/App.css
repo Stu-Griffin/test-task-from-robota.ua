@@ -1,0 +1,19 @@
+@font-face {
+  /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+  font-family: "Graphik-Regular-Web"; 
+  /* адрес шрифта и тип  */
+  src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Regular-Web.woff2") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
+@font-face {
+  /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+  font-family: "Graphik-Bold-Web"; 
+  /* адрес шрифта и тип  */
+  src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Bold-Web.woff2") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
+html {
+  background-color: #E5E5E5;
+}

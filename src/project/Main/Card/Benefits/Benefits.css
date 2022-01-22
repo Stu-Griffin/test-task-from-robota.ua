@@ -1,0 +1,49 @@
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Regular-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Regular-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+@font-face {
+    /* название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "Graphik-Bold-Web"; 
+    /* адрес шрифта и тип  */
+    src: url("https://images.cf-rabota.com.ua/2017/05/fonts/graphik/Graphik-Bold-Web.woff2") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 
+
+.benefits {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.benefits p:not(:first-child) {
+    margin-left: 1rem;
+}
+
+.benefits p {
+    flex: 0 0 auto;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0.55rem;
+}
+
+@media screen and (max-width: 768px) {
+    .benefits {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    .benefits p:not(:first-child) {
+        margin-left: 1rem;
+    }
+    .benefits p {
+        flex: 0 0 auto;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 0.55rem;
+    }
+}
