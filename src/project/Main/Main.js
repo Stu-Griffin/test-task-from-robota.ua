@@ -4,7 +4,7 @@ import { getInfFromAPI } from "../../workWithAPI/workWithAPI"
 import { getVacanciesListStatus, refreshArray } from '../../reducer/reducer';
 import Card from "./Card/Card"
 import './Main.css';
-
+const dates = ["2022-01-23T08:23:31+0300", "2022-01-11T10:56:14+0300", "2022-01-23T11:00:56+0300", "2022-01-22T00:33:59+0300", "2022-01-19T09:20:39+0300", "2022-01-22T00:43:10+0300", "2022-01-23T11:04:34+0300", "2022-01-08T12:15:59+0300", "2022-01-11T15:59:04+0300", "2022-01-14T16:07:12+0300"]
 function Main() {
     const dispatch = useDispatch();
     let vacancies = useSelector((state) => state.vacanciesListArr)
@@ -23,7 +23,6 @@ function Main() {
                 dispatch(getVacanciesListStatus(obj))
             })
         } else {
-            console.log("import")
             JSON.parse(localStorage.getItem("vacanciesStatusAndURL")).map(statusObj => {
                 dispatch(getVacanciesListStatus(statusObj))
             })
@@ -31,7 +30,7 @@ function Main() {
     }, [vacancies])
     return (
         <main className="mainInAPP">
-            {vacancies.map(vacancy => {
+            {vacancies.map((vacancy, i) => {
                 return(
                     <Card
                         key = {vacancy.id}
@@ -46,7 +45,7 @@ function Main() {
                         dislikeVacancy = {vacancy.dislikeVacancy}
                         saveInFavorite = {vacancy.saveInFavorite}
                         id = {vacancy.id}
-                        time={vacancy.creationDate}
+                        time={dates[i]}
                     />
                 )
             })}

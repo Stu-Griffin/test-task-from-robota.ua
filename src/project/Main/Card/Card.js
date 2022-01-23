@@ -15,6 +15,8 @@ function Card(props) {
                 companyName={props.companyName}
                 city={props.city}
                 logosSRC={props.logosSRC}
+                salary={props.salary}
+                salaryCurrency={props.salaryCurrency}
             />
             <Benefits/>
             <FooterInCard

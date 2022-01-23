@@ -92,7 +92,6 @@ function FooterInCard(props) {
         dispatch(Delete(props.id))
         dispatch(addObj(obj))
         const newArrVacancySatus = (store.getState()).vacanciesListStatusArr;
-        console.log(newArrVacancySatus)
         localStorage.setItem('vacanciesStatusAndURL', JSON.stringify(newArrVacancySatus));
     }
     const fileSizeLimit = (size) => {
@@ -125,6 +124,18 @@ function FooterInCard(props) {
             }
         }
     }  
+    const getTime = (time) => {
+        const d1 = Date.now(), d2 = Date.parse(props.time), interval = new Date(d1 - d2);
+        // год.месяц.день.час.минута.секунда
+        const years = `${interval.getFullYear() - 1970} лет`
+        const months = `${interval.getMonth()} месяцев`
+        const days = `${interval.getDate() - 1} дней`
+        const hours = `${interval.getHours()} часов`
+        const minutes = `${interval.getMinutes()} минут`
+        const seconds = `${interval.getSeconds()} секунд`
+        let result = [years, months, days, hours, minutes, seconds].filter((el) => !(el.split("").includes("0"))).join(" ");
+        return result
+    }
     const validators = [fileSizeLimit(2 * 1024 * 1024), fileTypeLimit('png jpeg')]; // 2Mb
     return ( 
         <footer className="footerInCard">
@@ -140,14 +151,19 @@ function FooterInCard(props) {
                         tabs='file url'
                         previewStep='true' 
                         onFileSelect={(file) => {
-                            console.log('File changed: ', file)
                             if (file) {
                                 file.progress(info => console.log('File progress: ', info.progress))
                                 file.done(info => console.log('File uploaded: ', info))
                             }
                             iconAction(responseOnVacancy)
                         }}
-                        onChange={info => console.log('Upload completed:', info)}
+                        
+                        onChange={info => {
+                            const q = window.confirm('Хотите увидеть файл, что Вы отправили?');
+                            if(q) {
+                                window.open(info.cdnUrl)
+                            }
+                        }}
                     />
                 </p>
                 <img className="icon" onClick={() => {
@@ -157,7 +173,7 @@ function FooterInCard(props) {
                     iconAction(isnotInterestForMe)
                 }} src={(vacancySatus === null || vacancySatus === undefined) ? dislike : (vacancySatus.status === isnotInterestForMe) ? dislikeChosen : dislike} alt="dislike"/>
             </div>
-            <p className="time">{(Date.now(props.time))} мин назад</p>
+            <p className="time">{getTime(props.time)} назад</p>
         </footer>
     );
 }

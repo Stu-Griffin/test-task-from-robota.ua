@@ -9,7 +9,7 @@ function MainInCard(props) {
             <article> 
                 {(cardStatusAndUrl === null || cardStatusAndUrl === undefined) ? <p className="marker">Новая</p> : (cardStatusAndUrl.status === isnotInterestForMe) ? <p className="markerDisliked">Не интересная</p> : (cardStatusAndUrl.status === responseOnVacancy) ? <p className="markerResponded">Вы откликнулись</p> : <p className="marker">Новая</p>}
                 <p className="vacancyName">{props.name}</p> 
-                {}
+                <p>{props.salary} {props.salaryCurrency}</p>
                 <div className="aboutWorkAndArea">
                     <p className="linkToEmployerSite" onClick={() => {
                         window.open(cardStatusAndUrl.employerUrl)
