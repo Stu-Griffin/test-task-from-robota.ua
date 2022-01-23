@@ -152,18 +152,24 @@ function FooterInCard(props) {
                         previewStep='true' 
                         onFileSelect={(file) => {
                             if (file) {
-                                file.progress(info => console.log('File progress: ', info.progress))
-                                file.done(info => console.log('File uploaded: ', info))
+                                // file.progress(info => console.log('File progress: ', info.progress))
+                                file.done(info => {
+                                    console.log('File uploaded: ', info)
+                                    const q = window.confirm('Хотите увидеть файл, что Вы отправили?');
+                                    if(q) {
+                                        window.open(info.cdnUrl)
+                                    }
+                                })
                             }
                             iconAction(responseOnVacancy)
                         }}
                         
-                        onChange={info => {
-                            const q = window.confirm('Хотите увидеть файл, что Вы отправили?');
-                            if(q) {
-                                window.open(info.cdnUrl)
-                            }
-                        }}
+                        // onChange={info => {
+                        //     const q = window.confirm('Хотите увидеть файл, что Вы отправили?');
+                        //     if(q) {
+                        //         window.open(info.cdnUrl)
+                        //     }
+                        // }}
                     />
                 </p>
                 <img className="icon" onClick={() => {
