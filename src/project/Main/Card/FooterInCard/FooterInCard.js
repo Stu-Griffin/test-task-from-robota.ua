@@ -163,7 +163,7 @@ function FooterInCard(props) {
                             }
                             iconAction(responseOnVacancy)
                         }}
-                        
+                        // 
                         // onChange={info => {
                         //     const q = window.confirm('Хотите увидеть файл, что Вы отправили?');
                         //     if(q) {
