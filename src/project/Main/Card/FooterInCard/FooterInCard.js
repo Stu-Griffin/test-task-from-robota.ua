@@ -7,37 +7,154 @@ import starChosen from "../../../img/starChosen.svg";
 import dislikeChosen from "../../../img/dislikeChosen.svg";
 import { Delete, addObj } from "../../../../reducer/reducer";
 import { store } from "../../../..";
-import { savedForMeStatus, isnotInterestForMe, responseOnVacancy } from "../../../App";
+import { savedForMeStatus, isnotInterestForMe, responseOnVacancy, errorInUploadingFileSize, defaultstatus, errorInUploadingFileType } from "../../../App";
+import { Widget } from "@uploadcare/react-widget";
+const UPLOADCARE_LOCALE_TRANSLATIONS = {
+    uploading: 'Загружаеться Подождите...',
+    loadingInfo: 'Загружаем инф...',
+    errors: {
+        default: 'Ошибка',
+        baddata: 'Некоректное значение',
+        size: 'Файл слишком большой',
+        upload: 'Не могу загрузить',
+        user: 'Загрузка отменена',
+        info: 'Не могу загрузить инф',
+        image: 'Можете загрузить, только картинки',
+        createGroup: 'Не могу создать группу файлов',
+        deleted: 'Файл был удален'
+    },
+    draghere: 'Положите файл сюда',
+    file: {
+        one: '%1 файлов',
+        other: '%1 файлов'
+    },
+    buttons: {
+        cancel: 'Отменить',
+        remove: 'Убрать',
+        choose: {
+            files: {
+                one: 'Откликнуться',
+                other: 'Откликнуться'
+            },
+            images: {
+                one: 'Откликнуться',
+                other: 'Откликнуться'
+            }
+        }
+    },
+    dialog: {
+        close: 'Закрыть',
+        openMenu: 'открыть меню',
+        done: 'Готово',
+        showFiles: 'Показать файлы',
+        tabs: {
+            preview: {
+                error: {
+                    default: {
+                        title: 'Ёлки-палки!',
+                        text: 'Этот файл просто огромный и не помещается в наш сервер или не того формата',
+                        back: 'Следующий дубль)'
+                    },
+                    size: {
+                        title: 'Файл слишком большой',
+                        text: 'Попытай удачу с другим файлом'
+                    },
+                    type: {
+                        title: 'Файл слишком большой',
+                        text: 'Попытай удачу с другим файлом'
+                    }
+                },
+            }
+        },
+    },
+    serverErrors: {
+        AccountBlockedError: "Administrator's account has been blocked. Please, contact support.",
+        AccountUnpaidError: "Administrator's account has been blocked. Please, contact support.",
+        AccountLimitsExceededError: "Administrator's account has reached its limits. Please, contact support.",
+        FileSizeLimitExceededError: 'File is too large.',
+        MultipartFileSizeLimitExceededError: 'File is too large.',
+        FileTypeForbiddenOnCurrentPlanError: 'Uploading of these files types is not allowed.',
+        DownloadFileSizeLimitExceededError: 'Downloaded file is too big.'
+    }
+};
 function FooterInCard(props) {
     const dispatch = useDispatch();
     const vacancySatus = useSelector((state) => state.vacanciesListStatusArr.find(el => el.id === props.id));
-    const iconAction = (id, type) => { 
+    const iconAction = (type) => { 
         const obj = Object.assign({}, vacancySatus)
-        console.log(vacancySatus)
         if(vacancySatus.status === responseOnVacancy) {
             alert("Вы не можете отменить отправку заявки")
         } else if(type === vacancySatus.status) {
-            obj.status = "active"  
+            obj.status = defaultstatus  
         } else {
             obj.status = type
         }
-        dispatch(Delete(id))
+        dispatch(Delete(props.id))
         dispatch(addObj(obj))
         const newArrVacancySatus = (store.getState()).vacanciesListStatusArr;
         console.log(newArrVacancySatus)
         localStorage.setItem('vacanciesStatusAndURL', JSON.stringify(newArrVacancySatus));
     }
+    const fileSizeLimit = (size) => {
+        return function(fileInfo) {
+            if (fileInfo.size === null) {
+                return
+            }
+            if (fileInfo.size > size) {
+                const obj = Object.assign({}, vacancySatus)
+                obj.status = errorInUploadingFileSize 
+                dispatch(Delete(props.id))
+                dispatch(addObj(obj))
+                throw new Error('fileType') 
+            }
+        }
+    }
+    const fileTypeLimit = (allowedFileTypes) => {
+        const types = allowedFileTypes.split(' ')
+        return function(fileInfo) {
+            if (fileInfo.name === null) {
+                return
+            }
+            const extension = fileInfo.name.split('.').pop()
+            if (extension && !types.includes(extension)) {
+                const obj = Object.assign({}, vacancySatus)
+                obj.status = errorInUploadingFileType 
+                dispatch(Delete(props.id))
+                dispatch(addObj(obj))
+                throw new Error('fileType')
+            }
+        }
+    }  
+    const validators = [fileSizeLimit(2 * 1024 * 1024), fileTypeLimit('png jpeg')]; // 2Mb
     return ( 
         <footer className="footerInCard">
             <div className="additionalFunctionsForCard">
-                <button className={(vacancySatus === null || vacancySatus === undefined) ? "joinWork" : (vacancySatus.status === responseOnVacancy) ? "hidden" : "joinWork"} onClick={() => {
-                    iconAction(props.id, responseOnVacancy)
-                }}>Откликнуться</button>
+                <p className={(vacancySatus === null || vacancySatus === undefined) ? "active" : (vacancySatus.status === responseOnVacancy) ? "hidden" : "active"}>
+                    <Widget
+                        localeTranslations={UPLOADCARE_LOCALE_TRANSLATIONS}
+                        className={(vacancySatus === null || vacancySatus === undefined) ? "joinWork" : (vacancySatus.status === responseOnVacancy) ? "hidden" : "joinWork"}
+                        validators={validators}
+                        publicKey='0478a850175828aba9a6'
+                        id='file'
+                        name='file'
+                        tabs='file url'
+                        previewStep='true' 
+                        onFileSelect={(file) => {
+                            console.log('File changed: ', file)
+                            if (file) {
+                                file.progress(info => console.log('File progress: ', info.progress))
+                                file.done(info => console.log('File uploaded: ', info))
+                            }
+                            iconAction(responseOnVacancy)
+                        }}
+                        onChange={info => console.log('Upload completed:', info)}
+                    />
+                </p>
                 <img className="icon" onClick={() => {
-                    iconAction(props.id, savedForMeStatus)
+                    iconAction(savedForMeStatus)
                 }} src={(vacancySatus === null || vacancySatus === undefined) ? star : (vacancySatus.status === savedForMeStatus) ? starChosen : star} alt="save it for me"/>
                 <img className="icon" onClick={() => {
-                    iconAction(props.id, isnotInterestForMe)
+                    iconAction(isnotInterestForMe)
                 }} src={(vacancySatus === null || vacancySatus === undefined) ? dislike : (vacancySatus.status === isnotInterestForMe) ? dislikeChosen : dislike} alt="dislike"/>
             </div>
             <p className="time">{(Date.now(props.time))} мин назад</p>

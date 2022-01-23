@@ -14,7 +14,6 @@ function Main() {
     useEffect(() => {
         dispatch(refreshArray())
         if(localStorage.getItem("vacanciesStatusAndURL") === null || localStorage.getItem("vacanciesStatusAndURL") === undefined) {
-            console.log("create")
             vacancies.map(el => {
                 const obj = {
                     id: el.id,
@@ -22,7 +21,6 @@ function Main() {
                     employerUrl: el.employerUrl
                 }
                 dispatch(getVacanciesListStatus(obj))
-                // return 0
             })
         } else {
             console.log("import")

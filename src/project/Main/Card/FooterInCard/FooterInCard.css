@@ -6,12 +6,21 @@
     font-style: normal; 
     font-weight: normal; 
 } 
-
-.joinWork {
+.uploadcare--widget__button, .uploadcare--widget__button_type_remove, .uploadcare--widget__button_type_open, .uploadcare--widget__button:hover, .uploadcare--widget__button_type_open:focus, .uploadcare--widget__button_type_cancel, .uploadcare--widget__button:checked, .uploadcare--widget__button:active, .uploadcare--widget__button:visited {
     cursor: pointer;
     color: #FF5252;
+    background: none;
+    border: none;
+    font-size: 100%;
+    background-image: url("../../../img/man.svg");
+    background-repeat: no-repeat;
+    width: 8.5rem;
+    padding-left: 1.25rem;
+    outline: none;
 }
-
+.uploadcare--widget_status_loaded {
+    display: none;
+}
 .icon {
     cursor: pointer;
     width: 1.25rem;
@@ -32,6 +41,8 @@
     background-repeat: no-repeat;
     width: 8.5rem;
     padding-left: 1rem;
+    cursor: pointer;
+    color: #FF5252;
 }
 
 .footerInCard {
