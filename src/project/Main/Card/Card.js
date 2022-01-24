@@ -8,7 +8,7 @@ import { isnotInterestForMe, responseOnVacancy, errorInUploadingFileSize } from 
 function Card(props) {
     const cardStatus = useSelector((state) => (state.vacanciesListStatusArr).find(el => el.id === props.id));
     return (
-        <div key={props.id} className={(cardStatus === null || cardStatus === undefined) ? "card" : (cardStatus.status === responseOnVacancy) ? "cardDislikedOrResponed" : "card"}>
+        <div key={props.id} className={(cardStatus === null || cardStatus === undefined) ? "card" : (cardStatus.status === responseOnVacancy || cardStatus.status === isnotInterestForMe) ? "cardDislikedOrResponed" : "card"}>
             <MainInCard 
                 id={props.id}
                 name={props.name}

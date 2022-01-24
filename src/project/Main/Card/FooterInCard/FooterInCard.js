@@ -136,7 +136,7 @@ function FooterInCard(props) {
         let result = [years, months, days, hours, minutes, seconds].filter((el) => !(el.split("").includes("0"))).join(" ");
         return result
     }
-    const validators = [fileSizeLimit(2 * 1024 * 1024), fileTypeLimit('png jpeg')]; // 2Mb
+    const validators = [fileSizeLimit(2 * 1024 * 1024), fileTypeLimit('png jpg jpeg')]; // 2Mb
     return ( 
         <footer className="footerInCard">
             <div className="additionalFunctionsForCard">
