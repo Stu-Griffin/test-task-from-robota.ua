@@ -1,5 +1,7 @@
 const defaultStore = {
     vacanciesListArr: [],
-    vacanciesListStatusArr:[]
+    vacanciesListStatusArr:[],
+    modalStatus: false,
+    url: ""
 }
 export default defaultStore;

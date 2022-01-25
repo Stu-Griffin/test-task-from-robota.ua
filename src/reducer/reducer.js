@@ -5,6 +5,8 @@ export const SETVACANCIESLISTSTATUSARR = "setVacanciesListStatusArr";
 export const DeleteObj = "delete";
 export const AddObj = "add";
 export const REFRESHARRAY = "refreshArray";
+export const OPENORCLODEMODAL = "openOrCloseModal";
+export const EXPORTURL = "exportUrl";
 
 const reducer = (state = defaultStore, action) => {
     switch(action.type){
@@ -33,6 +35,16 @@ const reducer = (state = defaultStore, action) => {
                 ...state,
                 vacanciesListStatusArr: action.inf
             }
+        case OPENORCLODEMODAL:
+            return {
+                ...state,
+                modalStatus: action.inf
+            }
+        case EXPORTURL:
+            return {
+                ...state,
+                url: action.inf
+            }
         default:
             return state
     }
@@ -58,4 +70,12 @@ export const addObj = (el) => ({
 export const refreshArray = () => ({ 
     type: REFRESHARRAY,
     inf: []
+})
+export const openOrCloseModal = (modalStatus) => ({ 
+    type: OPENORCLODEMODAL,
+    inf: (!modalStatus) 
+})
+export const exportUrl = (url) => ({ 
+    type: EXPORTURL,
+    inf: url
 })

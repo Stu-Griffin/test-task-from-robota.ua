@@ -5,7 +5,7 @@ import star from "../../../img/star.svg";
 import dislike from "../../../img/dislike.svg";
 import starChosen from "../../../img/starChosen.svg";
 import dislikeChosen from "../../../img/dislikeChosen.svg";
-import { Delete, addObj } from "../../../../reducer/reducer";
+import { Delete, addObj, openOrCloseModal, exportUrl } from "../../../../reducer/reducer";
 import { store } from "../../../..";
 import { savedForMeStatus, isnotInterestForMe, responseOnVacancy, errorInUploadingFileSize, defaultstatus, errorInUploadingFileType } from "../../../App";
 import { Widget } from "@uploadcare/react-widget";
@@ -77,9 +77,13 @@ const UPLOADCARE_LOCALE_TRANSLATIONS = {
         DownloadFileSizeLimitExceededError: 'Downloaded file is too big.'
     }
 };
+
+
 function FooterInCard(props) {
     const dispatch = useDispatch();
     const vacancySatus = useSelector((state) => state.vacanciesListStatusArr.find(el => el.id === props.id));
+    const modalStatus = useSelector((state) => state.modalStatus);
+
     const iconAction = (type) => { 
         const obj = Object.assign({}, vacancySatus)
         if(vacancySatus.status === responseOnVacancy) {
@@ -93,7 +97,11 @@ function FooterInCard(props) {
         dispatch(addObj(obj))
         const newArrVacancySatus = (store.getState()).vacanciesListStatusArr;
         localStorage.setItem('vacanciesStatusAndURL', JSON.stringify(newArrVacancySatus));
+        if(type === responseOnVacancy) {
+            dispatch(openOrCloseModal(modalStatus))
+        }
     }
+
     const fileSizeLimit = (size) => {
         return function(fileInfo) {
             if (fileInfo.size === null) {
@@ -108,6 +116,7 @@ function FooterInCard(props) {
             }
         }
     }
+
     const fileTypeLimit = (allowedFileTypes) => {
         const types = allowedFileTypes.split(' ')
         return function(fileInfo) {
@@ -124,6 +133,7 @@ function FooterInCard(props) {
             }
         }
     }  
+
     const getTime = (time) => {
         const d1 = Date.now(), d2 = Date.parse(props.time), interval = new Date(d1 - d2);
         // год.месяц.день.час.минута.секунда
@@ -136,7 +146,9 @@ function FooterInCard(props) {
         let result = [years, months, days, hours, minutes, seconds].filter((el) => !(el.split("").includes("0"))).join(" ");
         return result
     }
+
     const validators = [fileSizeLimit(2 * 1024 * 1024), fileTypeLimit('png jpg jpeg')]; // 2Mb
+    
     return ( 
         <footer className="footerInCard">
             <div className="additionalFunctionsForCard">
@@ -150,26 +162,14 @@ function FooterInCard(props) {
                         name='file'
                         tabs='file url'
                         previewStep='true' 
-                        onFileSelect={(file) => {
+                        onFileSelect={async (file) => {
                             if (file) {
-                                // file.progress(info => console.log('File progress: ', info.progress))
-                                file.done(info => {
-                                    console.log('File uploaded: ', info)
-                                    const q = window.confirm('Хотите увидеть файл, что Вы отправили?');
-                                    if(q) {
-                                        window.open(info.cdnUrl)
-                                    }
+                                await file.done(info => {
+                                    dispatch(exportUrl(info.cdnUrl))
                                 })
+                                iconAction(responseOnVacancy)
                             }
-                            iconAction(responseOnVacancy)
                         }}
-                        // 
-                        // onChange={info => {
-                        //     const q = window.confirm('Хотите увидеть файл, что Вы отправили?');
-                        //     if(q) {
-                        //         window.open(info.cdnUrl)
-                        //     }
-                        // }}
                     />
                 </p>
                 <img className="icon" onClick={() => {
