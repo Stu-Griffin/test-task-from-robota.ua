@@ -3,15 +3,17 @@
 }
 
 .error {
-    background: #FFD8D8;
-    background-image: url("../../img/Warning.svg");
+    background: #ffd8d8;
+    background-image: url(../../img/Warning.svg);
+    background-size: 4%;
+    background-position-x: 3%;
+    background-position-y: 48%;
     background-repeat: no-repeat;
-    padding: 2% 10%;
-    margin: 0rem -1rem;
-    border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    background-position-x: 2rem;
-    background-position-y: 0.95rem;
+    border-bottom-right-radius: 15px;
+    margin: 0 -1rem;
+    padding: 2% 10%;
+    font-size: 80%;
 }
 
 .cardDislikedOrResponed {
