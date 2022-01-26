@@ -2,8 +2,8 @@ import defaultStore from "../store/store"
 
 export const GETINFFROMAPI = "getInfFromAPI";
 export const SETVACANCIESLISTSTATUSARR = "setVacanciesListStatusArr";
-export const DeleteObj = "delete";
-export const AddObj = "add";
+export const DeleteObj = "deleteObj";
+export const AddObj = "addObj";
 export const REFRESHARRAY = "refreshArray";
 export const OPENORCLODEMODAL = "openOrCloseModal";
 export const EXPORTURL = "exportUrl";
@@ -59,7 +59,7 @@ export const getVacanciesListStatus = (el) => ({
     type: SETVACANCIESLISTSTATUSARR,
     inf: el
 })
-export const Delete = (id) => ({ 
+export const deleteObj = (id) => ({ 
     type: DeleteObj,
     inf: id
 })

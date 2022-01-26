@@ -5,7 +5,7 @@ import star from "../../../img/star.svg";
 import dislike from "../../../img/dislike.svg";
 import starChosen from "../../../img/starChosen.svg";
 import dislikeChosen from "../../../img/dislikeChosen.svg";
-import { Delete, addObj, openOrCloseModal, exportUrl } from "../../../../reducer/reducer";
+import { deleteObj, addObj, openOrCloseModal, exportUrl } from "../../../../reducer/reducer";
 import { store } from "../../../..";
 import { savedForMeStatus, isnotInterestForMe, responseOnVacancy, errorInUploadingFileSize, defaultstatus, errorInUploadingFileType } from "../../../App";
 import { Widget } from "@uploadcare/react-widget";
@@ -93,7 +93,7 @@ function FooterInCard(props) {
         } else {
             obj.status = type
         }
-        dispatch(Delete(props.id))
+        dispatch(deleteObj(props.id))
         dispatch(addObj(obj))
         const newArrVacancySatus = (store.getState()).vacanciesListStatusArr;
         localStorage.setItem('vacanciesStatusAndURL', JSON.stringify(newArrVacancySatus));
@@ -110,7 +110,7 @@ function FooterInCard(props) {
             if (fileInfo.size > size) {
                 const obj = Object.assign({}, vacancySatus)
                 obj.status = errorInUploadingFileSize 
-                dispatch(Delete(props.id))
+                dispatch(deleteObj(props.id))
                 dispatch(addObj(obj))
                 throw new Error('fileType') 
             }
@@ -127,7 +127,7 @@ function FooterInCard(props) {
             if (extension && !types.includes(extension)) {
                 const obj = Object.assign({}, vacancySatus)
                 obj.status = errorInUploadingFileType 
-                dispatch(Delete(props.id))
+                dispatch(deleteObj(props.id))
                 dispatch(addObj(obj))
                 throw new Error('fileType')
             }

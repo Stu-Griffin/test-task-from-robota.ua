@@ -69,14 +69,14 @@
 
 @media screen and (max-width: 1024px) {
     .companyLogo {
-        width: 20%;
-        margin-top: 3rem;
+        width: 41%;
+        margin-top: 8rem;
     }
 }
 
 @media screen and (max-width: 768px) {
     .vacancyName {
-        font-size: 142%;
+        font-size: 135%;
     }
 }
 
@@ -90,5 +90,15 @@
     .companyLogo {
         width: 0%;
         visibility: collapse;
+    }
+}
+
+@media screen and (max-width: 200px) {
+    .marker, .markerDisliked, .markerResponded {
+        width: 90%;
+        font-size: 80%;
+    }
+    .vacancyName {
+        font-size: 116%;
     }
 }

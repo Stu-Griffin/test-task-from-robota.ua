@@ -33,9 +33,6 @@ function App() {
         dispatch(openOrCloseModal(modalStatus))
       }} style={customStyles} contentLabel="Modal with URL">
         <button onClick={() => {
-          dispatch(openOrCloseModal(modalStatus))
-        }}>закрыть</button>
-        <button onClick={() => {
           window.open(url)
         }}>Посмотреть мой файл</button>
       </Modal>
