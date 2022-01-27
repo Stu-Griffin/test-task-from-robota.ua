@@ -7,8 +7,9 @@ import starChosen from "../../../img/starChosen.svg";
 import dislikeChosen from "../../../img/dislikeChosen.svg";
 import { deleteObj, addObj, openOrCloseModal, exportUrl } from "../../../../reducer/reducer";
 import { store } from "../../../..";
-import { savedForMeStatus, isnotInterestForMe, responseOnVacancy, errorInUploadingFileSize, defaultstatus, errorInUploadingFileType } from "../../../App";
+import { savedForMeStatus, isnotInterestForMe, responseOnVacancy, errorInUploadingFileSize, defaultstatus, errorInUploadingFileType, allowedFileTypes } from "../../../App";
 import { Widget } from "@uploadcare/react-widget";
+
 const UPLOADCARE_LOCALE_TRANSLATIONS = {
     uploading: 'Загружаеться Подождите...',
     loadingInfo: 'Загружаем инф...',
@@ -66,18 +67,8 @@ const UPLOADCARE_LOCALE_TRANSLATIONS = {
                 },
             }
         },
-    },
-    serverErrors: {
-        AccountBlockedError: "Administrator's account has been blocked. Please, contact support.",
-        AccountUnpaidError: "Administrator's account has been blocked. Please, contact support.",
-        AccountLimitsExceededError: "Administrator's account has reached its limits. Please, contact support.",
-        FileSizeLimitExceededError: 'File is too large.',
-        MultipartFileSizeLimitExceededError: 'File is too large.',
-        FileTypeForbiddenOnCurrentPlanError: 'Uploading of these files types is not allowed.',
-        DownloadFileSizeLimitExceededError: 'Downloaded file is too big.'
     }
 };
-
 
 function FooterInCard(props) {
     const dispatch = useDispatch();
@@ -102,16 +93,20 @@ function FooterInCard(props) {
         }
     }
 
+    const changeCardStatusError = (errorType) => {
+        const obj = Object.assign({}, vacancySatus)
+        obj.status = errorType 
+        dispatch(deleteObj(props.id))
+        dispatch(addObj(obj))
+    }
+
     const fileSizeLimit = (size) => {
         return function(fileInfo) {
             if (fileInfo.size === null) {
                 return
             }
             if (fileInfo.size > size) {
-                const obj = Object.assign({}, vacancySatus)
-                obj.status = errorInUploadingFileSize 
-                dispatch(deleteObj(props.id))
-                dispatch(addObj(obj))
+                changeCardStatusError(errorInUploadingFileSize)
                 throw new Error('fileType') 
             }
         }
@@ -125,10 +120,7 @@ function FooterInCard(props) {
             }
             const extension = fileInfo.name.split('.').pop()
             if (extension && !types.includes(extension)) {
-                const obj = Object.assign({}, vacancySatus)
-                obj.status = errorInUploadingFileType 
-                dispatch(deleteObj(props.id))
-                dispatch(addObj(obj))
+                changeCardStatusError(errorInUploadingFileType)
                 throw new Error('fileType')
             }
         }
@@ -147,7 +139,7 @@ function FooterInCard(props) {
         return result
     }
 
-    const validators = [fileSizeLimit(2 * 1024 * 1024), fileTypeLimit('png jpg jpeg')]; // 2Mb
+    const validators = [fileSizeLimit(2 * 1024 * 1024), fileTypeLimit(allowedFileTypes)]; // 2Mb
     
     return ( 
         <footer className="footerInCard">

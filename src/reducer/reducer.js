@@ -1,9 +1,9 @@
 import defaultStore from "../store/store"
 
 export const GETINFFROMAPI = "getInfFromAPI";
-export const SETVACANCIESLISTSTATUSARR = "setVacanciesListStatusArr";
-export const DeleteObj = "deleteObj";
-export const AddObj = "addObj";
+// export const SETVACANCIESLISTSTATUSARR = "setVacanciesListStatusArr";
+export const DELETEOBJ = "deleteObj";
+export const ADDOBJ = "addObj";
 export const REFRESHARRAY = "refreshArray";
 export const OPENORCLODEMODAL = "openOrCloseModal";
 export const EXPORTURL = "exportUrl";
@@ -15,17 +15,17 @@ const reducer = (state = defaultStore, action) => {
                 ...state, 
                 vacanciesListArr: [...state.vacanciesListArr, ...action.inf]
             }
-        case SETVACANCIESLISTSTATUSARR:
-            return {
-                ...state, 
-                vacanciesListStatusArr: [...state.vacanciesListStatusArr, action.inf]
-            }
-        case DeleteObj: 
+        // case SETVACANCIESLISTSTATUSARR:
+        //     return {
+        //         ...state, 
+        //         vacanciesListStatusArr: [...state.vacanciesListStatusArr, action.inf]
+        //     }
+        case DELETEOBJ: 
             return {
                 ...state,
                 vacanciesListStatusArr: state.vacanciesListStatusArr.filter((status) => status.id !== action.inf)
             }
-        case AddObj:
+        case ADDOBJ:
             return {
                 ...state, 
                 vacanciesListStatusArr: [...state.vacanciesListStatusArr, action.inf]
@@ -55,16 +55,16 @@ export const getVacanciesList = (response) => ({
     type: GETINFFROMAPI,
     inf: response
 })
-export const getVacanciesListStatus = (el) => ({ 
-    type: SETVACANCIESLISTSTATUSARR,
-    inf: el
-})
+// export const getVacanciesListStatus = (el) => ({ 
+//     type: SETVACANCIESLISTSTATUSARR,
+//     inf: el
+// })
 export const deleteObj = (id) => ({ 
-    type: DeleteObj,
+    type: DELETEOBJ,
     inf: id
 })
 export const addObj = (el) => ({ 
-    type: AddObj,
+    type: ADDOBJ,
     inf: el
 })
 export const refreshArray = () => ({ 

@@ -12,6 +12,7 @@ export const isnotInterestForMe = "disliked";
 export const responseOnVacancy = "responsed";
 export const errorInUploadingFileSize = "errorInUploadingFileTooBig";
 export const errorInUploadingFileType = "errorInUploadingFileWrongType";
+export const allowedFileTypes = "png jpg jpeg";
 
 const customStyles = {
   content: {
